@@ -5,17 +5,13 @@ class AVL
 public:
 	class node
 	{
+	public:
 		int key;
 		int height;
 		node* left;
 		node* right;
-		node(int key)
-		{
-			this->key = key;
-			height = 1;
-			left = nullptr;
-			right = nullptr;
-		}
+		node(int key) : key(key), height(1), left(nullptr), right(nullptr)
+		{}
 	};
 
 	node* root = nullptr;
@@ -27,6 +23,14 @@ public:
 	void print(int x);
 
 private:
+	int height(node* head);
+
+	node* rightRotation(node* head);
+	node* leftRotation(node* head);
+
+	void printUntil(node* head);
+	node* insertUntil(node* head, int x);
+	node* removeUntil(node* head, int x);
 
 
 
