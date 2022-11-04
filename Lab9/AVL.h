@@ -20,7 +20,7 @@ public:
 	void insert(int x);
 	void remove(int x);
 	node* search(int x);
-	void print(int x);
+	void print();
 
 private:
 	int height(node* head);
@@ -31,8 +31,5 @@ private:
 	void printUntil(node* head);
 	node* insertUntil(node* head, int x);
 	node* removeUntil(node* head, int x);
-
-
-
+	node* searchUntil(node* head, int x);
 };
-

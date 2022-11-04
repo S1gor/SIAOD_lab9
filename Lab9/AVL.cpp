@@ -3,6 +3,27 @@
 
 using namespace std;
 
+void AVL::insert(int x)
+{
+	root = insertUntil(root, x);
+}
+
+void AVL::remove(int x)
+{
+	root = removeUntil(root, x);
+}
+
+AVL::node* AVL::search(int x)
+{
+	return searchUntil(root, x);
+}
+
+void AVL::print()
+{
+	printUntil(root);
+	cout << endl;
+}
+
 int AVL::height(node* head)
 {
 	if (head == NULL) return 0;
@@ -121,4 +142,13 @@ AVL::node* AVL::removeUntil(node* head, int x)
 		}
 	}
 	return head;
+}
+
+AVL::node* AVL::searchUntil(node* head, int x)
+{
+	if (head == NULL)	return NULL;
+	int k = head->key;
+	if (k == x)		return head;
+	if (k > x)		return searchUntil(head->left, x);
+	if (k < x)		return searchUntil(head->right, x);
 }
