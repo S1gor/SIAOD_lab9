@@ -14,14 +14,17 @@ public:
 		{}
 	};
 
+	int s[100];
+
 	node* root = nullptr;
 	int n;
 
 	void insert(int x);
 	void remove(int x);
-	node* search(int x);
+	void search(int x);
 	void print();
 
+	void readFile(const char* filename, int numberValues, int numberSearchValues);
 private:
 	int height(node* head);
 

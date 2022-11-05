@@ -13,15 +13,37 @@ void AVL::remove(int x)
 	root = removeUntil(root, x);
 }
 
-AVL::node* AVL::search(int x)
+void AVL::search(int x)
 {
-	return searchUntil(root, x);
+	if (searchUntil(root, x)) cout << "There is a number " << x << endl;
+	else cout << "There is no number " << x << endl;
 }
 
 void AVL::print()
 {
 	printUntil(root);
 	cout << endl;
+}
+
+void AVL::readFile(const char* filename, int numberValues, int numberSearchValues)
+{
+	FILE* file;
+	if (fopen_s(&file, filename, "r") != NULL)
+	{
+		cout << "Couldn't open the file " << filename << endl;
+		exit(1);
+	}
+
+	int mas[100];
+	for (int i = 0; i < numberValues; i++)
+	{
+		fscanf_s(file, "%d", &mas[i]);
+		insert(mas[i]);
+	}
+	for (int i = 0; i < numberSearchValues; i++)
+		fscanf_s(file, "%d", &s[i]);
+
+	fclose(file);
 }
 
 int AVL::height(node* head)
