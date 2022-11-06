@@ -3,21 +3,15 @@
 class AVL
 {
 public:
-	class node
+	struct node
 	{
-	public:
-		int key;
+		int data;
+		node* left = nullptr;
+		node* right = nullptr;
 		int height;
-		node* left;
-		node* right;
-		node(int key) : key(key), height(1), left(nullptr), right(nullptr)
-		{}
 	};
 
-	int s[100];
-
 	node* root = nullptr;
-	int n;
 
 	void insert(int x);
 	void remove(int x);

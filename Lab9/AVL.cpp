@@ -40,8 +40,12 @@ void AVL::readFile(const char* filename, int numberValues, int numberSearchValue
 		fscanf_s(file, "%d", &mas[i]);
 		insert(mas[i]);
 	}
+	print();
 	for (int i = 0; i < numberSearchValues; i++)
-		fscanf_s(file, "%d", &s[i]);
+	{
+		fscanf_s(file, "%d", &mas[i]);
+		search(mas[i]);
+	}
 
 	fclose(file);
 }
@@ -76,7 +80,7 @@ void AVL::printUntil(node* head)
 {
 	if (head == NULL)	return;
 	printUntil(head->left);
-	cout << head->key << " ";
+	cout << head->data << " ";
 	printUntil(head->right);
 }
 
@@ -84,18 +88,20 @@ AVL::node* AVL::insertUntil(node* head, int x)
 {
 	if (head == NULL)
 	{
-		n++;
-		node* tmp = new node(x);
-		return tmp;
+		head = new node;
+		head->data = x;
+		head->height = 0;
+		head->left = head->right = NULL;
+		return head;
 	}
-	if (x < head->key)			head->left = insertUntil(head->left, x);
-	else if (x > head->key)		head->right = insertUntil(head->right, x);
+	if (x < head->data)				head->left = insertUntil(head->left, x);
+	else if (x > head->data)		head->right = insertUntil(head->right, x);
 	head->height = height(head->left) > height(head->right) ? 1 + height(head->left) : 1 + height(head->right);
 	
 	int balance = height(head->left) - height(head->right);
 	if (balance > 1)
 	{
-		if (x < head->left->key) return rightRotation(head);
+		if (x < head->left->data) return rightRotation(head);
 		else
 		{
 			head->left = leftRotation(head->left);
@@ -104,7 +110,7 @@ AVL::node* AVL::insertUntil(node* head, int x)
 	}
 	else if (balance < -1)
 	{
-		if (x > head->right->key)	return leftRotation(head);
+		if (x > head->right->data)	return leftRotation(head);
 		else
 		{
 			head->right = rightRotation(head->right);
@@ -116,9 +122,9 @@ AVL::node* AVL::insertUntil(node* head, int x)
 
 AVL::node* AVL::removeUntil(node* head, int x)
 {
-	if (head == NULL)		return NULL;
-	if (x < head->key)		head->left = removeUntil(head->left, x);
-	else if (x > head->key)	head->right = removeUntil(head->right, x);
+	if (head == NULL)			return 0;
+	if (x < head->data)			head->left = removeUntil(head->left, x);
+	else if (x > head->data)	head->right = removeUntil(head->right, x);
 	else
 	{
 		node* r = head->right;
@@ -136,8 +142,8 @@ AVL::node* AVL::removeUntil(node* head, int x)
 		else
 		{
 			while (r->left != NULL) r = r->left;
-			head->key = r->key;
-			head->right = removeUntil(head->right, r->key);
+			head->data = r->data;
+			head->right = removeUntil(head->right, r->data);
 		}
 	}
 
@@ -169,7 +175,7 @@ AVL::node* AVL::removeUntil(node* head, int x)
 AVL::node* AVL::searchUntil(node* head, int x)
 {
 	if (head == NULL)	return NULL;
-	int k = head->key;
+	int k = head->data;
 	if (k == x)		return head;
 	if (k > x)		return searchUntil(head->left, x);
 	if (k < x)		return searchUntil(head->right, x);
