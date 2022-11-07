@@ -2,24 +2,17 @@
 
 class AVL
 {
-public:
+private:
 	struct node
 	{
 		int data;
+		int height;
 		node* left = nullptr;
 		node* right = nullptr;
-		int height;
 	};
 
 	node* root = nullptr;
 
-	void insert(int x);
-	void remove(int x);
-	void search(int x);
-	void print();
-
-	void readFile(const char* filename, int numberValues, int numberSearchValues);
-private:
 	int height(node* head);
 
 	node* rightRotation(node* head);
@@ -29,4 +22,12 @@ private:
 	node* insertUntil(node* head, int x);
 	node* removeUntil(node* head, int x);
 	node* searchUntil(node* head, int x);
+
+public:
+	void insert(int x);
+	void remove(int x);
+	void search(int x);
+	void print();
+
+	void readFile(const char* filename, int numberValues, int numberSearchValues);
 };
