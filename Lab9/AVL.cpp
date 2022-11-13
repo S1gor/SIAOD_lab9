@@ -175,8 +175,7 @@ AVL::node* AVL::removeUntil(node* head, int x)
 AVL::node* AVL::searchUntil(node* head, int x)
 {
 	if (head == NULL)	return NULL;
-	int k = head->data;
-	if (k == x)		return head;
-	if (k > x)		return searchUntil(head->left, x);
-	if (k < x)		return searchUntil(head->right, x);
+	if (head->data == x)	return head;
+	if (head->data > x)		return searchUntil(head->left, x);
+	if (head->data < x)		return searchUntil(head->right, x);
 }
